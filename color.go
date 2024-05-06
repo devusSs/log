@@ -2,8 +2,6 @@ package log
 
 import (
 	"fmt"
-	"os"
-	"strings"
 )
 
 var noColor bool = false
@@ -23,23 +21,11 @@ func colorString(s string, c color) string {
 		return s
 	}
 
-	if !terminalIsAnsi() {
-		panic("terminal does not support ansi coloring")
-	}
+	// TODO: Find way to check if we can color this
 
 	if c == colorReset {
 		return s
 	}
 
 	return fmt.Sprintf("%s%s%s", c, s, colorReset)
-}
-
-func terminalIsAnsi() bool {
-	term := os.Getenv("TERM")
-
-	if strings.Contains(term, "xterm") || strings.Contains(term, "color") {
-		return true
-	}
-
-	return false
 }

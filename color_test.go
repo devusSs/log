@@ -2,7 +2,6 @@ package log
 
 import (
 	"fmt"
-	"os"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -48,39 +47,12 @@ func TestColorString(t *testing.T) {
 		})
 	}
 
-	t.Run("non ansi - panic", func(t *testing.T) {
-		base := os.Getenv("TERM")
-		defer os.Setenv("TERM", base)
-
-		err := os.Setenv("TERM", "not_ansi_yikes")
-		require.NoError(t, err)
-
-		require.Panics(t, func() { colorString("test", colorCyan) })
-	})
+	// TODO: add test if we can print colored output
 
 	t.Run("no color", func(t *testing.T) {
 		noColor = true
 		defer func() { noColor = false }()
 
 		require.Equal(t, colorString("test", colorCyan), "test")
-	})
-}
-
-func TestTerminalIsAnsi(t *testing.T) {
-	base := os.Getenv("TERM")
-	defer os.Setenv("TERM", base)
-
-	t.Run("ansi", func(t *testing.T) {
-		err := os.Setenv("TERM", "xterm")
-		require.NoError(t, err)
-
-		require.True(t, terminalIsAnsi())
-	})
-
-	t.Run("non ansi", func(t *testing.T) {
-		err := os.Setenv("TERM", "not_ansi_yikes")
-		require.NoError(t, err)
-
-		require.False(t, terminalIsAnsi())
 	})
 }
