@@ -1,0 +1,6 @@
+.DS_STORE
+.envrc
+dist/
+bin/
+coverage.txt
+coverage.out
