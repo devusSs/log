@@ -85,6 +85,7 @@ func TestMsgMarshal(t *testing.T) {
 		require.Equal(t, string(b), expected)
 	})
 
+	// TODO: this errors because key/value pairs get changed
 	t.Run("msg with args", func(t *testing.T) {
 		msg := &msg{
 			Timestamp: time.Time{},
